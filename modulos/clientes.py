@@ -130,4 +130,19 @@ if __name__ == '__main__':
         else:
             print("\nOpción inválida. Intenta de nuevo.")
 
+def obtener_resumen_canales():
+    """
+    Calcula cuántos clientes vienen por cada canal de captación.
+    """
+    lista_clientes = cargar_clientes()
+    df = pd.DataFrame(lista_clientes)
+    
+    if df.empty:
+        return pd.DataFrame(columns=["Canal de Venta", "Total Clientes"])
+    
+    # Contar por columna 'origen'
+    resumen = df['origen'].value_counts().reset_index()
+    resumen.columns = ['Canal de Venta', 'Total Clientes']
+    return resumen
  
+ # ESTO ES UNA PRUEBA DE ACTUALIZACIÓN.
