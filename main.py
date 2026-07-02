@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 # Importaciones de los módulos del equipo
-from modulos.clientes import crear_cliente, obtener_clientes_df, cargar_clientes
+from modulos.clientes import crear_cliente, obtener_clientes_df, cargar_clientes, obtener_resumen_canales
 from modulos.stock import agregar_producto, obtener_productos_df, cargar_productos
 from modulos.pedidos import registrar_pedido, obtener_pedidos_df, cargar_pedidos
 from modulos.despacho import actualizar_estado_despacho, obtener_despachos_df
@@ -68,6 +68,10 @@ elif seleccion == "Clientes":
     else:
         st.subheader("Historial y Base de Datos de Clientes")
         st.dataframe(obtener_clientes_df(), use_container_width=True, hide_index=True)
+      # ... después de mostrar el historial ...
+        st.markdown("---")
+        st.subheader("Resumen por Canal de Captación")
+        st.table(obtener_resumen_canales())
 
 elif seleccion == "Stock":
     st.title("Módulo: Control de Disponibilidad (Stock)")

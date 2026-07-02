@@ -42,54 +42,33 @@ def guardar_clientes(clientes):
 
 
 def crear_cliente(id_cliente, nombre, telefono, direccion, origen):
-    """
-    Valida y registra un nuevo cliente en el sistema.
-    """
-    # 1. Validación de Campos Vacíos
-    campos = {
-        "ID": id_cliente, 
-        "Nombre": nombre, 
-        "Teléfono": telefono, 
-        "Dirección": direccion, 
-        "Origen": origen
-    }
-    
-    for nombre_campo, valor in campos.items():
-        if valor is None or str(valor).strip() == "":
-            return False, f"Error: El campo '{nombre_campo}' es obligatorio y no puede estar vacío."
-    
-    # Normalizar strings
-    id_cliente_str = str(id_cliente).strip()
-    origen_str = str(origen).strip()
-    
-    # 2. Validación de Canales de Origen Permitidos
-    orígenes_validos = ["Venta Web", "Venta Presencial", "WhatsApp"]
-    if origen_str not in orígenes_validos:
-        return False, f"Error: El origen '{origen_str}' no es válido. Debe ser uno de estos: {orígenes_validos}."
-    
-    # 3. Cargar datos existentes para validar duplicados
-    lista_clientes = cargar_clientes()
-    
-    # 4. Validación de ID Único
-    id_duplicado = any(str(c.get("id_cliente")).strip() == id_cliente_str for c in lista_clientes)
-    if id_duplicado:
-        return False, f"Error: Ya existe un cliente registrado con el ID '{id_cliente_str}'."
-    
-    # 5. Creación de la estructura del nuevo cliente
-    nuevo_cliente = {
-        "id_cliente": id_cliente_str,
-        "nombre": str(nombre).strip(),
-        "telefono": str(telefono).strip(),
-        "direccion": str(direccion).strip(),
-        "origen": origen_str
-    }
-    
-    # 6. Agregar a la lista y persistir en el archivo JSON
-    lista_clientes.append(nuevo_cliente)
-    guardar_clientes(lista_clientes)
-    
-    return True, "Cliente registrado con éxito."
+    # 1. Limpieza de datos (Normalización)
+    id_cliente = str(id_cliente).strip().upper()
+    nombre = str(nombre).strip().upper()
+    telefono = str(telefono).strip()
+    direccion = str(direccion).strip()
+    origen = str(origen).strip()
 
+    # 2. Cargar lista actual
+    lista_actual = cargar_clientes()
+    
+    # 3. Validación de duplicados (evita IDs repetidos)
+    for c in lista_actual:
+        if c.get("id_cliente") == id_cliente:
+            return False, f"Error: Ya existe un cliente con el ID {id_cliente}."
+    
+    # 4. Crear cliente si no existe
+    nuevo_cliente = {
+        "id_cliente": id_cliente,
+        "nombre": nombre,
+        "telefono": telefono,
+        "direccion": direccion,
+        "origen": origen
+    }
+    
+    lista_actual.append(nuevo_cliente)
+    guardar_clientes(lista_actual)
+    return True, f"Cliente {nombre} registrado con éxito."
 
 def obtener_clientes_df():
     """
@@ -150,3 +129,5 @@ if __name__ == '__main__':
             break
         else:
             print("\nOpción inválida. Intenta de nuevo.")
+
+ 
