@@ -10,7 +10,8 @@ from modulos.despacho import actualizar_estado_despacho, obtener_despachos_df
 from modulos.reportes import obtener_resumen_general, obtener_kpis_pedidos, obtener_tabla_kpis_df
 from modulos.incidencias import registrar_no_entregado, obtener_incidencias_df
 
-st.set_page_config(page_title="Control de Pedidos", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="LogiCheck 360", page_icon="📦", layout="wide", initial_sidebar_state="expanded")
+# st.set_page_config(page_title="Control de Pedidos", layout="wide", initial_sidebar_state="expanded")
 
 # --- PANEL LATERAL DE NAVEGACIÓN ---
 with st.sidebar:
@@ -30,8 +31,8 @@ st.markdown("---")
 # --- CONTENIDO DINÁMICO ---
 
 if seleccion == "Inicio":
-    st.title("Panel de Control Principal")
-    st.markdown("### ¡Bienvenidos al Sistema de Gestión de Pedidos No Entregados!")
+    st.title("📦📦 LogiCheck 360")
+    st.markdown("### ¡Bienvenidos al Sistema de Gestión de Entregas Pendientes!")
     st.markdown("""
     Esta plataforma integra los entregables de los 5 roles del equipo de ingeniería:
     - **Módulo de Clientes:** Registro y control de bases de datos de compradores.
