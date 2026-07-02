@@ -1,0 +1,13 @@
+[
+    {
+        "codigo_pedido": "PED-001",
+        "id_cliente": "60999999",
+        "productos": [
+            {
+                "producto_id": "P001",
+                "cantidad": 4
+            }
+        ],
+        "estado": "Pendiente"
+    }
+]
